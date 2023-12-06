@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=root
+      - POSTGRES_DB=matchcontest
+    ports:
+      - "5432:5432"   
+    volumes:
+      - ./db/migrations/:/docker-entrypoint-initdb.d/
+      - db:/var/lib/postgresql/data
+  db-admin:
+    image: dpage/pgadmin4:latest
+    restart: always
+
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=dev@match.mt
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    volumes:
+      - db-admin:/pgadmin
+    ports:
+      - "9090:80"
+    depends_on:
+      - db
+
+volumes:
+  db:
+  db-admin:
