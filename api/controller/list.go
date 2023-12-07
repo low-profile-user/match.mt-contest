@@ -25,7 +25,7 @@ func HandleGetListUsers(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	w.WriteHeader(http.StatusAccepted)
+	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(fmt.Sprintf(`{"list" : %s}`, listJSON)))
 }
 
