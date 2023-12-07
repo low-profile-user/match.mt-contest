@@ -30,7 +30,7 @@ func AddUserAtList(user *User) (string, error) {
 	query := db.QueryRow("SELECT addUser($1::VARCHAR(255), $2::VARCHAR(255), $3::VARCHAR(255), $4::VARCHAR(255), $5::VARCHAR(255), $6::BOOL);", user.ID, user.Name, user.Email, user.Hash, user.Cellphone, user.Status)
 
 	if err := query.Scan(&listID); err != nil {
-		return "", err
+		return "", errors.New("objeto inválido")
 	}
 
 	defer db.Close()
@@ -49,7 +49,7 @@ func GetListUsers(listID string) ([]User, error) {
 	rows, err := db.Query("SELECT user_id, username, email, user_hash, celphone, user_status FROM Users WHERE list_id = $1;", listID)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.New("lista não encontrada")
 	}
 
 	var users []User
