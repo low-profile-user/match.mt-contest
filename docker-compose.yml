@@ -13,20 +13,29 @@ services:
     volumes:
       - ./db/migrations/:/docker-entrypoint-initdb.d/
       - db:/var/lib/postgresql/data
-  db-admin:
-    image: dpage/pgadmin4:latest
-    restart: always
+  # db-admin:
+  #   image: dpage/pgadmin4:latest
+  #   restart: always
 
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=dev@match.mt
-      - PGADMIN_DEFAULT_PASSWORD=postgres
-    volumes:
-      - db-admin:/pgadmin
+  #   environment:
+  #     - PGADMIN_DEFAULT_EMAIL=dev@match.mt
+  #     - PGADMIN_DEFAULT_PASSWORD=postgres
+  #   volumes:
+  #     - db-admin:/pgadmin
+  #   ports:
+  #     - "9090:80"
+  #   depends_on:
+  #     - db
+  web:
+    build: 
+      context: ./api
     ports:
-      - "9090:80"
+      - "8000:8000"
     depends_on:
       - db
 
+    
+
 volumes:
   db:
-  db-admin:
+  # db-admin:
