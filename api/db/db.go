@@ -7,7 +7,7 @@ import (
 )
 
 func ConectToDatabase() *sql.DB {
-	connectionConfig := "user=root dbname=matchcontest password=postgres sslmode=disable host=localhost"
+	connectionConfig := "user=root dbname=matchcontest password=postgres sslmode=disable host=db"
 	db, error := sql.Open("postgres", connectionConfig)
 
 	if error != nil {
